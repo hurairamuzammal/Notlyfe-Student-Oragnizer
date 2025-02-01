@@ -2,7 +2,7 @@
 A Flutter app that features beautiful Material You colors. The app contains features to facilitate students in managing lecture notes and todos across multiple devices.
 
 <p align="center">
-  <img src="assets/banner.png" alt="App Banner" width="100%">
+  <img src="assets/banner2.png" alt="App Banner" width="100%">
 </p>
 
 # Features 🚀
