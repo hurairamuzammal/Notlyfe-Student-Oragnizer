@@ -1,4 +1,4 @@
-# Notlyfe-Student-Organizer - Beta Testing 🧑‍🎓  
+# Notlyfe-Student-Organizer 🧑‍🎓 - Beta Testing ⚒️  
 A Flutter app that features beautiful Material You colors. The app contains features to facilitate students in managing lecture notes and todos across multiple devices.
 
 <p align="center">
