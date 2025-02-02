@@ -29,13 +29,11 @@ gemini for problem at ease.
 
 * Integration of AI model.😎
 
-# Annoucement 
-
-Flutter source code will be shared soon.😉
 # Note ⚠️
 
 Currently this application is in development mode therefore app lags proper data encryption.
-Avoid storing sensitive info until future release.
+Avoid storing sensitive info until future release.   
+Flutter source code will be shared soon.😉
 # About Developer  😊
 This app is entirely coded by Muhammad Abu Huraira.
 
