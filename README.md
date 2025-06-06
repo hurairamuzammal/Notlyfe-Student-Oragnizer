@@ -5,6 +5,15 @@ A Flutter app that features beautiful Material You colors. The app contains feat
   <img src="assets/banner3.png" alt="App Banner" width="100%">
 </p>
 
+
+# Preview 🔍
+
+<p align="center">
+  <img src="assets/preview.mp4" alt="App Banner" width="100%">
+</p>
+
+
+
 # Features 🚀
 
 * Material You Design: Enjoy a visually appealing interface with dynamic colors that adapt to your system theme.
