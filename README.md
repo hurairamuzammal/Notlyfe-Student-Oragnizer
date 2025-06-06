@@ -13,6 +13,13 @@ A Flutter app that features beautiful Material You colors. The app contains feat
 </p>
 
 
+# Figma Design Preview 🔍
+
+[Visit the link to preview the Notlyfe design](https://www.figma.com/proto/v2JAgN07Si20QTaQ75721e/Software-Engineering-Project?page-id=0%3A1&node-id=2-8607&p=f&viewport=237%2C225%2C0.15&t=8BWpFacJ1jngtOZZ-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2%3A8607)
+# Word detailed Document 📃
+
+[Click to view Complete SRS Word Documentation]()
+
 
 # Features 🚀
 
@@ -37,6 +44,9 @@ gemini for problem at ease.
 * Proper data encryption
 
 * Integration of AI model.😎
+
+
+
 
 # Note ⚠️
 
