@@ -1,0 +1,7 @@
+{
+  "min_supported_version": "2.1.0",
+  "min_supported_build": 3,
+  "latest_version": "2.1.0",
+  "download_url": "https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer/releases/latest",
+  "update_message": "This version of Notlyfe is no longer supported due to security and storage upgrades. Please install v2.1.0 or newer."
+}
