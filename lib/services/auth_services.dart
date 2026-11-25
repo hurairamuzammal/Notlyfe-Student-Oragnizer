@@ -363,7 +363,8 @@ class AuthServices {
     try {
       await supabaseInstance.auth.resetPasswordForEmail(
         cleanEmail,
-        redirectTo: 'https://hurairamuzammal.github.io/notlyfe-reset/',
+        redirectTo:
+            'https://hurairamuzammal.github.io/Notlyfe-Student-Oragnizer/reset/',
       );
       await PasswordResetRateLimiter.recordResetAttempt(cleanEmail);
       return '';

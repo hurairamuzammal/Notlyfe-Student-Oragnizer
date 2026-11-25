@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notlyfe — The Offline-First Academic & Semester Companion</title>
+  <meta name="description" content="Notlyfe is an offline-first academic workspace for engineering & CS students. Track courses, simulate target CGPA, take notes without cloud latency, and stay ahead in exam week.">
+  <meta name="keywords" content="Notlyfe, academic tracker, offline notes, CGPA simulator, student app, Flutter, Hive, Supabase">
+  <meta name="theme-color" content="#080a0f">
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Notlyfe — The Offline-First Academic & Semester Companion">
+  <meta property="og:description" content="Engineered for exam weeks. Zero Wi-Fi dependencies, sub-millisecond Hive storage, and instant target CGPA projections.">
+  <meta property="og:image" content="assets/logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+
+  <!-- Google Fonts: Outfit, Manrope, Space Grotesk, Permanent Marker, Caveat, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Permanent+Marker&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-line" id="progress-line"></div>
+
+  <!-- Navigation Bar -->
+  <header class="site-nav" id="main-nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand-group">
+        <img src="assets/logo.png" alt="Notlyfe Logo" class="nav-brand-img">
+        <span class="nav-brand-name">Notlyfe</span>
+        <span class="nav-brand-tag">v2.1.0</span>
+      </a>
+
+      <ul class="nav-links-wrap">
+        <li><a href="#scenarios" class="nav-item-link">Scenarios</a></li>
+        <li><a href="#features" class="nav-item-link">Features</a></li>
+        <li><a href="#architecture" class="nav-item-link">Architecture</a></li>
+        <li><a href="#developers" class="nav-item-link">Developers</a></li>
+        <li><a href="privacy.html" class="nav-item-link">Privacy</a></li>
+        <li><a href="#faq" class="nav-item-link">FAQ</a></li>
+      </ul>
+
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer" target="_blank" rel="noopener noreferrer" class="nav-item-link" style="display: flex; align-items: center; gap: 6px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span style="font-size: 13.5px;">GitHub</span>
+        </a>
+        <a href="#download" class="nav-cta-btn">Get App</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Canvas Particle Engine -->
+  <section class="hero-wrap" id="hero">
+    <canvas id="canvas-backdrop"></canvas>
+    
+    <div class="hero-container">
+      <div class="hero-text-side">
+        <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
+          <span>ACADEMIC WORKSPACE • OFFLINE FIRST</span>
+        </div>
+
+        <h1 class="hero-headline">
+          Engineered for exam weeks. <br>
+          <span class="marker-accent">Built for high pressure.</span>
+        </h1>
+
+        <p class="hero-lead">
+          No cloud sync lag when campus Wi-Fi drops. No clunky spreadsheets to guess your semester grades. Notlyfe gives engineering students instant Hive local notes, automated attendance safeguards, and predictive CGPA calculation.
+        </p>
+
+        <div class="hero-button-row">
+          <a href="#download" class="btn-hero-primary" id="btn-hero-apk">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download Release APK</span>
+          </a>
+
+          <a href="#scenarios" class="btn-hero-outline" id="btn-hero-scenarios">
+            <span>Explore Real Scenarios</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="hero-assurance-strip">
+          <div class="hero-assurance-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Sub-millisecond Hive Storage</span>
+          </div>
+          <div class="hero-assurance-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Accurate Weighted GPA</span>
+          </div>
+          <div class="hero-assurance-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Zero Ads or Slop</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Interactive Student Dashboard -->
+      <div class="hero-glass-dashboard" id="interactive-dashboard">
+        <div class="dash-header">
+          <div class="dash-user-badge">
+            <div class="dash-avatar">CS</div>
+            <div class="dash-meta">
+              <h4>Semester 5 Dashboard</h4>
+              <span>BS Computer Science</span>
+            </div>
+          </div>
+          <div class="dash-status-pill">
+            <span style="width: 6px; height: 6px; background: #10b981; border-radius: 50%;"></span>
+            <span>Offline-Ready</span>
+          </div>
+        </div>
+
+        <div class="dash-metrics-grid">
+          <div class="dash-metric-card">
+            <div class="dash-metric-label">Cumulative GPA</div>
+            <div class="dash-metric-val">3.84</div>
+            <span style="font-size: 11px; color: #10b981; font-weight: 600;">+0.12 this term</span>
+          </div>
+
+          <div class="dash-metric-card">
+            <div class="dash-metric-label">Overall Attendance</div>
+            <div class="dash-metric-val">88%</div>
+            <div class="dash-attendance-bar-bg">
+              <div class="dash-attendance-fill"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-upcoming-lecture">
+          <div class="lecture-time-chip">NEXT UP • 10:30 AM</div>
+          <div class="lecture-title">CS302: Database Systems (InnoDB B+ Trees)</div>
+          <div class="lecture-venue">Auditorium Hall B • Prof. Richardson</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- High-Impact Marquee Band Ticker -->
+  <div class="ticker-band" aria-hidden="true">
+    <div class="ticker-track">
+      <div class="ticker-item">OFFLINE HIVE STORAGE <span class="ticker-dot"></span></div>
+      <div class="ticker-item">EXAM CRUNCH MODE <span class="ticker-dot"></span></div>
+      <div class="ticker-item">QR CODE COURSE SYNC <span class="ticker-dot"></span></div>
+      <div class="ticker-item">TARGET GPA SIMULATION <span class="ticker-dot"></span></div>
+      <div class="ticker-item">ATTENDANCE THRESHOLD SAFEGUARD <span class="ticker-dot"></span></div>
+      <div class="ticker-item">SUPABASE RLS BACKUP <span class="ticker-dot"></span></div>
+      <div class="ticker-item">FLUTTER 120 FPS ENGINE <span class="ticker-dot"></span></div>
+      <div class="ticker-item">OFFLINE HIVE STORAGE <span class="ticker-dot"></span></div>
+      <div class="ticker-item">EXAM CRUNCH MODE <span class="ticker-dot"></span></div>
+      <div class="ticker-item">QR CODE COURSE SYNC <span class="ticker-dot"></span></div>
+      <div class="ticker-item">TARGET GPA SIMULATION <span class="ticker-dot"></span></div>
+      <div class="ticker-item">ATTENDANCE THRESHOLD SAFEGUARD <span class="ticker-dot"></span></div>
+      <div class="ticker-item">SUPABASE RLS BACKUP <span class="ticker-dot"></span></div>
+      <div class="ticker-item">FLUTTER 120 FPS ENGINE <span class="ticker-dot"></span></div>
+    </div>
+  </div>
+
+  <!-- Contrasting Section: Real Student Scenarios (Light Canvas) -->
+  <section class="section-light fade-in-section" id="scenarios">
+    <div class="section-max">
+      <div class="section-head-center">
+        <div class="section-kicker-dark">Real Campus Scenarios</div>
+        <h2 class="section-title-dark">How Notlyfe solves actual student problems.</h2>
+        <p class="section-sub-dark">
+          Forget generic bullet points. Here is what happens when you use Notlyfe during high-stakes university weeks.
+        </p>
+      </div>
+
+      <div class="scenario-layout">
+        <!-- Left: Interactive Scenario Tabs -->
+        <div class="scenario-nav-tabs" role="tablist">
+          
+          <div class="scenario-tab active" data-scenario="sc-offline" role="tab">
+            <span class="scenario-tab-num">Scenario 01</span>
+            <h3 class="scenario-tab-title">The Basement Lecture Dead-Zone</h3>
+            <p class="scenario-tab-brief">Sitting in an underground lab where campus Wi-Fi drops to zero bars.</p>
+          </div>
+
+          <div class="scenario-tab" data-scenario="sc-qr" role="tab">
+            <span class="scenario-tab-num">Scenario 02</span>
+            <h3 class="scenario-tab-title">Instant QR Course &amp; Note Handoff</h3>
+            <p class="scenario-tab-brief">Scan a classmate's screen to copy their entire 14-week syllabus &amp; notes.</p>
+          </div>
+
+          <div class="scenario-tab" data-scenario="sc-cgpa" role="tab">
+            <span class="scenario-tab-num">Scenario 03</span>
+            <h3 class="scenario-tab-title">The "What If I Get a B+?" Calculator</h3>
+            <p class="scenario-tab-brief">Simulate final exam score impacts on your Dean's List and overall CGPA.</p>
+          </div>
+
+          <div class="scenario-tab" data-scenario="sc-attendance" role="tab">
+            <span class="scenario-tab-num">Scenario 04</span>
+            <h3 class="scenario-tab-title">The 75% Attendance Safeguard</h3>
+            <p class="scenario-tab-brief">Automated warning before you accidentally get disqualified from exam hall.</p>
+          </div>
+
+        </div>
+
+        <!-- Right: Scenario Stage Preview -->
+        <div class="scenario-stage" id="scenario-stage">
+          
+          <!-- Panel 1: Offline Dead Zone -->
+          <div class="stage-scenario-panel active" id="sc-offline">
+            <div class="stage-badge">0ms Read / Write Latency</div>
+            <h3 class="stage-title">Zero Wi-Fi? No spinning loading wheels.</h3>
+            <p class="stage-desc">
+              Most student apps hang or lock up the moment connectivity drops in basement auditoriums. Notlyfe writes directly to local Apache Hive boxes in memory. You can draft 3,000 words of notes, organize course lectures, and edit todos without a single packet of internet.
+            </p>
+            <div class="stage-interactive-box">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-family: var(--font-mono); font-size: 12px; color: var(--amber-light);">CACHE STATUS: LOCAL HIVE BOX</span>
+                <span style="color: #10b981; font-size: 12px; font-weight: 700;">● Active in Memory</span>
+              </div>
+              <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 12px; font-family: var(--font-mono); font-size: 13px; color: #cbd5e1;">
+                &gt; write_note("CS301: TCP 3-Way Handshake SYN-ACK")<br>
+                &gt; Status: COMMITTED (0.42 ms) [Offline Buffer Ready]
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: QR Code Scan -->
+          <div class="stage-scenario-panel" id="sc-qr">
+            <div class="stage-badge">Peer-to-Peer Handoff</div>
+            <h3 class="stage-title">Scan a QR code, inherit the entire semester.</h3>
+            <p class="stage-desc">
+              Missed the first week of classes? Your study partner taps "Share Course" to generate an encrypted QR code. You point your phone camera, scan it, and import the syllabus, grading scheme, and professor contact details instantly.
+            </p>
+            <div class="stage-interactive-box">
+              <div class="qr-scanner-demo">
+                <div class="qr-box-mock">
+                  <div class="qr-laser-line"></div>
+                  <!-- Mock QR code pattern -->
+                  <svg width="84" height="84" viewBox="0 0 24 24" fill="#0f172a">
+                    <path d="M3 3h7v7H3V3zm2 2v3h3V5H5zm9-2h7v7h-7V3zm2 2v3h3V5h-3zM3 14h7v7H3v-7zm2 2v3h3v-3H5zm11 1h2v2h-2v-2zm-2-3h2v2h-2v-2zm4 4h2v2h-2v-2zm2-2h-2v-2h2v2zm-2-2h-2v-2h2v2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <button type="button" class="btn-hero-primary" id="qr-scan-action-btn" style="padding: 10px 20px; font-size: 13.5px;">Simulate QR Scan</button>
+                  <div id="qr-scan-result-text" style="font-size: 12.5px; margin-top: 10px; color: var(--text-light-secondary);">
+                    Tap the button above to simulate instantaneous QR import.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: CGPA Simulator -->
+          <div class="stage-scenario-panel" id="sc-cgpa">
+            <div class="stage-badge">Predictive Math Engine</div>
+            <h3 class="stage-title">Simulate grades before final exams.</h3>
+            <p class="stage-desc">
+              Stop stressing over manual calculations. Drag the target grade slider below to instantly see how this term's performance updates your cumulative university standing.
+            </p>
+            <div class="stage-interactive-box">
+              <div class="interactive-sim-slider-row">
+                <div>
+                  <span style="font-size: 12px; color: var(--text-light-muted); display: block;">PROJECTED CUMULATIVE GPA</span>
+                  <div class="sim-cgpa-output" id="sim-cgpa-val">3.72</div>
+                  <span id="sim-standing-tag" style="font-size: 12px; font-weight: 700; color: #10b981;">Dean's List Standing</span>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 12px; color: var(--text-light-muted); display: block;">Drag Target Term GPA</span>
+                  <input type="range" id="sim-grade-slider" min="2.0" max="4.0" step="0.05" value="3.8" style="width: 140px; accent-color: var(--amber-primary); cursor: pointer; margin-top: 8px;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 4: Attendance Threshold -->
+          <div class="stage-scenario-panel" id="sc-attendance">
+            <div class="stage-badge">Exam Safeguard</div>
+            <h3 class="stage-title">Never get barred from the exam hall.</h3>
+            <p class="stage-desc">
+              Universities enforce strict 75% or 80% attendance criteria. Notlyfe computes exactly how many lectures you can afford to miss without risking exam bans or heavy penalty fines.
+            </p>
+            <div class="stage-interactive-box">
+              <div style="display: flex; align-items: center; gap: 14px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 14px; border-radius: 10px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <div style="font-size: 13.5px; color: #fca5a5;">
+                  <strong>CS201 Data Structures Attendance: 76.2%</strong><br>
+                  Warning: Only <strong>1 missed class</strong> remaining before dropping below mandatory 75%.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Feature Matrix (Dark Section) -->
+  <section class="section-dark fade-in-section" id="features">
+    <div class="section-max">
+      <div class="section-head-center">
+        <div class="hero-pill" style="margin-bottom: 14px;">
+          <span>DEEP ARCHITECTURE</span>
+        </div>
+        <h2 class="hero-headline" style="font-size: clamp(34px, 4vw, 48px); margin-bottom: 16px;">
+          Every feature built with intention.
+        </h2>
+        <p class="hero-lead" style="margin: 0 auto;">
+          Grounded utility tailored for engineers. Zero cartoon radius, zero bloated analytics tracking.
+        </p>
+      </div>
+
+      <div class="bento-row-grid" style="margin-top: 50px;">
+        
+        <div class="bento-cell span-8">
+          <div class="bento-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </div>
+          <h3 class="bento-cell-title">Semester Course Catalog &amp; Lab Tracker</h3>
+          <p class="bento-cell-desc">
+            Organize complex subjects like Computer Networks, Database Systems, Data Structures, and Web Engineering with designated credit hours, syllabus progress, and lab assignment submissions.
+          </p>
+          <ul class="bento-feature-list">
+            <li class="bento-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Instant assignment checklist with deadlines and notification reminders</span>
+            </li>
+            <li class="bento-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Lab code snippets and markdown formatted technical notes</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bento-cell span-4">
+          <div class="bento-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+          </div>
+          <h3 class="bento-cell-title">Apache Hive Engine</h3>
+          <p class="bento-cell-desc">
+            Embedded key-value boxes written in pure Dart. No SQLite bridge overhead, no database locks, and instant serialization.
+          </p>
+          <span style="font-family: var(--font-mono); font-size: 12px; color: var(--amber-light);">Benchmark: 0.38ms read latency</span>
+        </div>
+
+        <div class="bento-cell span-4">
+          <div class="bento-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
+          </div>
+          <h3 class="bento-cell-title">Weighted CGPA Engine</h3>
+          <p class="bento-cell-desc">
+            Supports standard university 4.00 grading matrices. Accurately weights multi-semester credits without inaccurate linear assumptions.
+          </p>
+        </div>
+
+        <div class="bento-cell span-8">
+          <div class="bento-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+          </div>
+          <h3 class="bento-cell-title">Encrypted Supabase Cloud Backup</h3>
+          <p class="bento-cell-desc">
+            Synchronize your local Hive boxes to encrypted Supabase PostgreSQL with Row Level Security (RLS). If you switch or misplace your phone, your notes and academic trajectory remain 100% intact.
+          </p>
+          <ul class="bento-feature-list">
+            <li class="bento-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Automated background reconciliation when network is re-established</span>
+            </li>
+            <li class="bento-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Encrypted user token authorization with PostgreSQL RLS isolation</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Engineering Architecture Section -->
+  <section class="section-dark fade-in-section" id="architecture" style="padding-top: 40px; border-top: 1px solid var(--border-dark);">
+    <div class="section-max">
+      <div class="section-head-center">
+        <div class="hero-pill" style="margin-bottom: 12px;">ENGINEERING FOUNDATION</div>
+        <h2 class="hero-headline" style="font-size: clamp(30px, 3.8vw, 44px);">What powers the experience.</h2>
+      </div>
+
+      <div class="arch-cards-row">
+        <div class="arch-card">
+          <div class="arch-card-name">Flutter 3 &amp; Dart</div>
+          <div class="arch-card-role">UI &amp; Rendering</div>
+          <div class="arch-card-desc">120 FPS refresh rate, smooth gesture physics, and Material 3 Expressive theming.</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-card-name">Riverpod 2.x</div>
+          <div class="arch-card-role">State Management</div>
+          <div class="arch-card-desc">Compile-time safe, testable providers with unidirectional reactive data flow.</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-card-name">Apache Hive</div>
+          <div class="arch-card-role">Local Database</div>
+          <div class="arch-card-desc">Sub-millisecond key-value boxes written in Dart for true offline reliability.</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-card-name">Supabase</div>
+          <div class="arch-card-role">Cloud &amp; Auth</div>
+          <div class="arch-card-desc">PostgreSQL database, Row Level Security, and secure session management.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developers Section (#developers) -->
+  <section class="section-dark fade-in-section" id="developers" style="padding-top: 60px; border-top: 1px solid var(--border-dark);">
+    <div class="section-max">
+      <div class="section-head-center">
+        <div class="hero-pill" style="margin-bottom: 12px;">CREATOR &amp; OPEN SOURCE</div>
+        <h2 class="hero-headline" style="font-size: clamp(32px, 3.8vw, 46px);">Behind Notlyfe.</h2>
+        <p class="hero-lead" style="margin: 0 auto;">
+          Built by students, for students. Fully open source under the MIT license.
+        </p>
+      </div>
+
+      <div class="dev-showcase-grid">
+        <!-- Lead Developer Card -->
+        <div class="dev-profile-card">
+          <div class="dev-head-row">
+            <div class="dev-avatar-img">MH</div>
+            <div class="dev-title-info">
+              <h3>Muzammal Huraira</h3>
+              <span>Lead Developer &amp; Architect</span>
+            </div>
+          </div>
+          <p class="dev-bio">
+            Computer science student and mobile engineer specialized in Flutter architecture, high-performance local database design, and modern reactive systems. Created Notlyfe to eliminate academic friction during high-pressure exam seasons.
+          </p>
+          <div class="dev-chip-list">
+            <span class="dev-chip">Flutter / Dart</span>
+            <span class="dev-chip">Apache Hive</span>
+            <span class="dev-chip">Riverpod</span>
+            <span class="dev-chip">Supabase / PostgreSQL</span>
+            <span class="dev-chip">Material 3 Expressive</span>
+          </div>
+          <div class="dev-links-row">
+            <a href="https://github.com/hurairamuzammal" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+              <span>GitHub Profile</span>
+            </a>
+            <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+              <span>View Source Code</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Open Source & Community Card -->
+        <div class="dev-profile-card">
+          <div class="dev-head-row">
+            <div class="dev-avatar-img" style="background: linear-gradient(135deg, #10b981, #065f46); color: #ffffff;">MIT</div>
+            <div class="dev-title-info">
+              <h3>Open Source Project</h3>
+              <span>Community Contributions Welcome</span>
+            </div>
+          </div>
+          <p class="dev-bio">
+            Notlyfe has zero proprietary paywalls or tracking SDKs. You can verify the security guarantees in the open, fork the codebase, or submit pull requests for university-specific grading schemes.
+          </p>
+          <div class="dev-chip-list">
+            <span class="dev-chip">MIT License</span>
+            <span class="dev-chip">Issue Tracker</span>
+            <span class="dev-chip">Pull Requests Open</span>
+            <span class="dev-chip">CI/CD Automated</span>
+          </div>
+          <div class="dev-links-row">
+            <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer/issues" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Open an Issue</span>
+            </a>
+            <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer/stargazers" target="_blank" rel="noopener noreferrer" class="dev-link-btn">
+              <span>★ Star Repository</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Contact Us Section (#contact) -->
+  <section class="contact-wrap fade-in-section" id="contact">
+    <div class="section-max">
+      <div class="contact-grid">
+        
+        <div class="contact-info-panel">
+          <div class="section-kicker-dark">Get in Touch</div>
+          <h3>Have feedback, a feature idea, or university question?</h3>
+          <p>
+            Whether you are a student suggesting a customized grading scale or a university representative looking for course integration, send us a direct message.
+          </p>
+
+          <div class="contact-channels">
+            <div class="contact-channel-item">
+              <div class="channel-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="channel-text">
+                <strong>Direct Developer Email</strong>
+                <span>contact@notlyfe.app / GitHub issues</span>
+              </div>
+            </div>
+
+            <div class="contact-channel-item">
+              <div class="channel-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="channel-text">
+                <strong>Response Turnaround</strong>
+                <span>Usually within 24 hours</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-card">
+          <form id="contact-form">
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Your Full Name *</label>
+              <input type="text" id="contact-name" name="name" class="form-input" placeholder="e.g. Alex Morgan" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-email">University / Student Email *</label>
+              <input type="email" id="contact-email" name="email" class="form-input" placeholder="alex@university.edu" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">Inquiry Type</label>
+              <select id="contact-subject" name="subject" class="form-select">
+                <option value="feature">Feature Request &amp; Idea</option>
+                <option value="bug">Bug Report / Calculation Correction</option>
+                <option value="grading">University Grading Scale Addition</option>
+                <option value="other">General Question</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message *</label>
+              <textarea id="contact-message" name="message" class="form-textarea" placeholder="Tell us how we can make Notlyfe better for your semester..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-form-submit" id="contact-submit-btn">Send Message</button>
+
+            <div class="form-feedback-msg" id="contact-feedback">
+              ✓ Message received! Thank you for reaching out. We will get back to you shortly.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section-dark fade-in-section" id="faq">
+    <div class="section-max">
+      <div class="section-head-center">
+        <div class="hero-pill" style="margin-bottom: 12px;">FREQUENTLY ASKED</div>
+        <h2 class="hero-headline" style="font-size: clamp(32px, 3.8vw, 44px);">Clear answers to common questions.</h2>
+      </div>
+
+      <div class="faq-box-wrap">
+        
+        <div class="faq-accordion-item active">
+          <button class="faq-trigger-btn" type="button">
+            <span>Does Notlyfe require Wi-Fi or cellular data to function?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content-drawer">
+            No. Notlyfe is strictly built offline-first using pure Dart Apache Hive boxes. All notes, syllabus items, and grades reside in your device's memory. You can take entire lectures of notes in dead-zones, and the app will quietly synchronize with Supabase once network connectivity returns.
+          </div>
+        </div>
+
+        <div class="faq-accordion-item">
+          <button class="faq-trigger-btn" type="button">
+            <span>How does the CGPA calculation formula work?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content-drawer">
+            The GPA engine strictly calculates semester GPA using standard credit weightings: the sum of (Grade Points × Credit Hours) divided by Total Enrolled Credits. Cumulative GPA factors in completed historical terms without inaccurate linear shortcuts.
+          </div>
+        </div>
+
+        <div class="faq-accordion-item">
+          <button class="faq-trigger-btn" type="button">
+            <span>Is my academic and personal data kept private?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content-drawer">
+            Yes, completely. Data is stored on-device in Hive, and any optional cloud sync uses Supabase with PostgreSQL Row Level Security (RLS). We never sell data, display ads, or use intrusive tracking libraries.
+          </div>
+        </div>
+
+        <div class="faq-accordion-item">
+          <button class="faq-trigger-btn" type="button">
+            <span>Where do I reset my password if I get locked out?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-content-drawer">
+            If you ever forget your password, use the "Forgot Password" option on the app sign-in screen to receive a secure, one-time recovery link sent to your registered email.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Mega Call to Action Banner -->
+  <section class="mega-cta-section fade-in-section" id="download">
+    <div class="mega-cta-card">
+      <div class="mega-cta-glow"></div>
+      <h2 class="mega-cta-title">Take control of your semester today.</h2>
+      <p class="mega-cta-subtitle">
+        Join engineering and computer science students who keep their notes accessible offline, their attendance safe, and their GPA on target.
+      </p>
+
+      <div class="mega-cta-actions">
+        <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer/releases/latest" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" id="cta-bottom-apk">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Download v2.1.0 (Android / Linux / Windows)</span>
+        </a>
+
+        <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer" target="_blank" rel="noopener noreferrer" class="btn-hero-outline" id="cta-bottom-star">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span>Star on GitHub</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-top-grid">
+      <div class="footer-brand-box">
+        <img src="assets/logo.png" alt="Notlyfe Logo">
+        <span class="footer-brand-title">Notlyfe</span>
+        <p class="footer-brand-desc">
+          An offline-first student workspace designed with Android Material 3 Expressive aesthetics. Zero cloud lag, zero ads.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul class="footer-links-list">
+          <li><a href="#scenarios">Campus Scenarios</a></li>
+          <li><a href="#features">Feature Matrix</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#download">Releases</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Engineering</h5>
+        <ul class="footer-links-list">
+          <li><a href="#developers">Lead Developer</a></li>
+          <li><a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer" target="_blank" rel="noopener noreferrer">Source Code</a></li>
+          <li><a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer/issues" target="_blank" rel="noopener noreferrer">Bug Reports</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Account &amp; Legal</h5>
+        <ul class="footer-links-list">
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="reset/">Password Reset Portal</a></li>
+          <li><a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Notlyfe. Open-source Flutter workspace with E2EE &amp; Pluggable Storage.</span>
+      <span>Designed &amp; Developed by Muhammad Abu Huraira</span>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

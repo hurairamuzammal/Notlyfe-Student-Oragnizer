@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Notlyfe</title>
+  <meta name="description" content="Notlyfe Privacy Policy covering client-side end-to-end encryption, Google Drive folder-only access, pluggable storage, and zero tracking.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080a0f;
+      --surface: #111520;
+      --border: #232a3b;
+      --text: #e6ebf5;
+      --muted: #9aa6be;
+      --accent: #7aa2ff;
+      --good: #3ecf8e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 10, 15, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-links { display: flex; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+    main {
+      max-width: 880px;
+      margin: 36px auto 64px;
+      padding: 0 20px;
+    }
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--good);
+      background: rgba(62, 207, 142, 0.12);
+      border: 1px solid rgba(62, 207, 142, 0.3);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    h1, h2 { font-family: 'Outfit', sans-serif; margin-top: 0; }
+    h1 { font-size: 32px; margin-bottom: 8px; }
+    h2 { font-size: 20px; margin-top: 30px; margin-bottom: 10px; color: #ffffff; }
+    p, li { color: var(--muted); font-size: 15px; }
+    strong { color: var(--text); }
+    code {
+      background: #1a2030;
+      color: #c8d8ff;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    section.card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin-bottom: 18px;
+    }
+    section.card h2 { margin-top: 0; }
+    a { color: var(--accent); }
+    footer {
+      max-width: 880px;
+      margin: 0 auto 40px;
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="./">
+        <img src="assets/logo.png" alt="Notlyfe">
+        <span>Notlyfe</span>
+      </a>
+      <div class="nav-links">
+        <a href="./">Home</a>
+        <a href="reset/">Password Reset</a>
+        <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <span class="badge">Effective Date: November 24, 2026 &bull; App v2.1.0+</span>
+      <h1>Privacy Policy</h1>
+      <p>
+        Notlyfe is an open-source, offline-first academic workspace built for students across Android, Linux, and Windows.
+        We collect the minimum data required to sync your workspace, encrypt your notes on-device before syncing, and never sell data or show ads.
+      </p>
+    </div>
+
+    <section class="card">
+      <h2>1. Data We Process</h2>
+      <ul>
+        <li><strong>Account Credentials:</strong> Email address and authentication tokens managed via Supabase Auth (or Google Sign-In when you choose it) to identify your workspace and enforce per-user Row-Level Security (RLS).</li>
+        <li><strong>Academic Workspace Data:</strong> Courses, calendar events, todos, and rich-text notes you create in the app.</li>
+        <li><strong>Study Files:</strong> PDFs, slides, and documents you upload to your chosen storage provider (Google Drive, WebDAV/Nextcloud, custom HTTP server, local folder, or Supabase Storage).</li>
+        <li><strong>Zero Analytics &amp; Zero Ads:</strong> Notlyfe does not embed advertising SDKs, behavioral analytics, or third-party trackers.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>2. Client-Side End-to-End Encryption (E2EE)</h2>
+      <p>
+        Notes and todos are encrypted locally on your device before leaving the app using authenticated encryption
+        (<code>enc:v2:</code> — AES-256-CBC + HMAC-SHA256 with separate derived encryption and MAC keys).
+        Encryption fails closed if the local vault is not initialized, and active keys are scrubbed from memory on sign-out.
+      </p>
+      <p>
+        Local secrets (API keys, OAuth tokens, and vault keys) are stored in Notlyfe's encrypted vault (<code>v3:</code>)
+        with the master key kept in an app-private <code>0600</code> file outside <code>SharedPreferences</code>.
+        On Android, cloud backup is explicitly disabled (<code>android:allowBackup="false"</code>) to prevent extraction of local databases and keys.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>3. Google Drive Integration &amp; Google User Data</h2>
+      <p>
+        When you connect Google Drive during setup or in Settings, Notlyfe requests only the non-sensitive, folder-scoped
+        permission <code>https://www.googleapis.com/auth/drive.file</code> alongside basic profile scopes
+        (<code>openid</code>, <code>email</code>, <code>profile</code>).
+      </p>
+      <ul>
+        <li>Notlyfe can only create, read, update, and delete files and folders that Notlyfe itself creates inside <code>Notlyfe/</code>. It cannot access other files in your Google Drive.</li>
+        <li>OAuth tokens are encrypted locally via <code>SecureStorageService</code> (<code>v3:</code>), bound to your active Notlyfe user ID, and never shared with third parties.</li>
+        <li>You can disconnect Google Drive at any time from <strong>Settings &rarr; Google Drive</strong> or revoke access in your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">Google Account Permissions</a>.</li>
+        <li>Notlyfe's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>, including the Limited Use requirements.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>4. Pluggable Storage &amp; Bring-Your-Own-Key (BYOK) AI</h2>
+      <ul>
+        <li><strong>Custom Storage Backends:</strong> If you configure WebDAV/Nextcloud, a custom HTTP server, or a local directory, your files and encrypted notes are sent directly to the endpoint you specify (HTTPS is enforced for public hosts).</li>
+        <li><strong>Optional AI Assistant:</strong> AI chat is opt-in and uses your own Gemini API key stored locally in the encrypted vault. Prompts are sent directly from your device to Google's Gemini API under Google's terms.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>5. Security Updates &amp; Version Enforcement</h2>
+      <p>
+        To protect user data from vulnerabilities in outdated builds, Notlyfe checks a public minimum-version policy
+        (<code>version_policy.json</code> and Supabase <code>app_config</code>) and sends the app version and build number in request headers
+        (<code>x-notlyfe-version</code>, <code>x-notlyfe-build</code>). No personal or device-identifying telemetry is included in version checks.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>6. Your Rights &amp; Data Deletion</h2>
+      <p>
+        You own your data. You can delete individual courses, notes, todos, and files directly inside Notlyfe, clear local app data on your device, or disconnect external storage at any time.
+        To request full account deletion or ask privacy questions, contact
+        <a href="mailto:huraira.eqeel@gmail.com">huraira.eqeel@gmail.com</a> or open an issue on
+        <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer/issues" target="_blank" rel="noopener noreferrer">GitHub</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; 2026 Notlyfe &bull; MIT License</span>
+    <span><a href="./">Back to Notlyfe</a> &middot; <a href="https://github.com/hurairamuzammal/Notlyfe-Student-Oragnizer" target="_blank" rel="noopener noreferrer">Source Code</a></span>
+  </footer>
+</body>
+</html>
